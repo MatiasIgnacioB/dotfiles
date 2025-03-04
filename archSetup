@@ -1,0 +1,88 @@
+############################## Git
+sudo pacman -S git
+
+############################## Arch AUR Repository Package Manager
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+
+############################## Display Manager
+sudo pacman -S sddm qt5-quickcontrols2 qt5-graphicaleffects
+sudo systemctl enable sddm.service
+sudo mkdir -p /etc/sddm.conf.d
+sudo cp /usr/lib/sddm/sddm.conf.d/default.conf /etc/sddm.conf.d/
+sudo nano /etc/sddm.conf.d/default.conf
+change current theme, font, and numlock to "on"
+
+############################## X11 Graphical Enviroment
+sudo pacman -S awesome
+
+############################## Internet Browser
+sudo pacman -S qbittorrent noto-fonts-cjk noto-fonts-emoji
+yay -S floorp-bin
+
+############################## Text Editor
+yay -S vscodium
+
+############################## File Explorer
+sudo pacman -S nemo nemo-fileroller
+gsettings set org.cinnamon.desktop.default-applications.terminal exec alacritty
+
+############################## Terminal
+sudo pacman -S alacritty
+
+############################## Social Networks
+sudo pacman -S telegram-desktop discord
+yay -S whatdesk-bin
+
+############################## Entertainment
+yay -S freetube
+
+############################## Audio
+sudo pacman -S pavucontrol alsa-utils pipewire-alsa pipewire pipewire-pulse alsa-tools
+
+############################## Launcher
+sudo pacman -S rofi papirus-icon-theme picom
+yay -S departure-mono-font
+rofi -show run
+>select theme
+alt+a
+
+############################## AMD Specifics
+sudo pacman -S amd-ucode xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon libva-mesa-driver lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau
+
+############################## Necessary Stuff
+sudo pacman -S mesa lib32-mesa neofetch linux-headers npm
+sudo systemctl enable fstrim.service fstrim.timer --now
+
+############################## Games
+yay -S pokemmo
+sudo pacman -S steam
+
+############################## Styling
+sudo pacman -S lxappearance mpv python-pywal
+yay -S eww pokeget
+
+############################## Media
+sudo pacman -S flameshot fuse2 gimp blender
+yay -S chitubox-free-bin mirage
+
+############################## Drive Setup
+lsblk -f
+sudo mkdir -p /mnt/drive1
+sudo nano /etc/fstab
+add: UUID=<your-drive-uuid> /mnt/drive1 ext4 defaults,nofail 0 2
+
+############################## 
+############################## 
+############################## 
+############################## 
+############################## 
+############################## 
+############################## 
+############################## 
+############################## 
+############################## 
+############################## 
+############################## 
+

@@ -1,0 +1,1 @@
+sugar-dark -> /usr/share/sddm/themes
