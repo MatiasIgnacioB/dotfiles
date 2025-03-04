@@ -86,3 +86,64 @@ add: UUID=<your-drive-uuid> /mnt/drive1 ext4 defaults,nofail 0 2
 ############################## 
 ############################## 
 
+
+
+Steps to Set Up Dotfiles on a New Machine
+
+1️⃣ Install Git (if not installed)
+
+sudo pacman -S git  # Arch-based distros
+sudo apt install git # Debian-based distros
+
+2️⃣ Set Up SSH Authentication (Recommended)
+
+    If you already have an SSH key, copy it to ~/.ssh/id_ed25519.
+    If not, generate a new SSH key and add it to GitHub:
+
+ssh-keygen -t ed25519 -C "your-email@example.com"
+cat ~/.ssh/id_ed25519.pub  # Copy this and add it to GitHub SSH keys
+
+Add it to the SSH agent:
+
+    eval "$(ssh-agent -s)"
+    ssh-add ~/.ssh/id_ed25519
+
+3️⃣ Clone Your Dotfiles Repository as a Bare Repo
+
+git clone --bare git@github.com:MatiasIgnacioB/dotfiles.git $HOME/.dotfiles
+
+4️⃣ Define the Alias for Easy Management
+
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+
+Make it permanent by adding this line to ~/.bashrc or ~/.zshrc:
+
+echo "alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'" >> ~/.bashrc
+
+Then, apply changes:
+
+source ~/.bashrc  # or source ~/.zshrc
+
+5️⃣ Checkout Your Dotfiles
+
+dotfiles checkout
+
+If you see errors due to existing files, back them up:
+
+mkdir -p .dotfiles-backup
+dotfiles checkout 2>&1 | grep "Overwrite" | awk '{print $2}' | xargs -I{} mv {} .dotfiles-backup/{}
+dotfiles checkout
+
+6️⃣ Ensure Git Ignores Untracked Files
+
+dotfiles config --local status.showUntrackedFiles no
+
+7️⃣ You're Done! 🎉
+Now, you can manage your dotfiles as usual:
+
+dotfiles status       # Check changes
+dotfiles add .config/alacritty/alacritty.yml  # Add new files
+dotfiles commit -m "Updated Alacritty config"
+dotfiles push         # Push changes to GitHub
+
+Now, every time you reinstall Linux or set up a new machine, just follow these steps, and all your configurations will be restored automatically! 🚀
